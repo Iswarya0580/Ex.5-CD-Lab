@@ -3,7 +3,7 @@ RECOGNITION OF THE GRAMMAR(anb where n>=10) USING YACC
 
 ### Name:Iswarya P
 ### Reg no:212223230082
-### Date:24-10-2024
+### Date:17-10-2024
 
 ### 
 ## Aim:
