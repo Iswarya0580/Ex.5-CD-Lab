@@ -20,66 +20,53 @@ To write a YACC program to recognize the grammar anb where n>=10.
 8.	Enter a string as input and it is identified as valid or invalid.
 
 # PROGRAM:
-anb.l
+GRAMMAR.L:
 ```
-%{
 #include "y.tab.h"
-#include <stdio.h>
 %}
 
-/* Rule Section */
 %%
-
-[aA] { return A; }
-[bB] { return B; }
-\n { return NL; }
-. { /* Ignore any other characters */ }
-
+a    { return A; } 
+b    { return B; }  
+.    { return 0; }
 %%
-
 
 int yywrap() {
     return 1;
 }
 ```
 
-anb.y
+GRAMMAR.Y:
 ```
 %{
 #include <stdio.h>
-#include <stdlib.h>
-
-void yyerror(char *s);
 int yylex(void);
+void yyerror(const char *s);
 %}
 
-%token A B NL
+%token A B
 
-%% 
+%%
+S   : A A A A A A A A A A B    { printf("Valid string\n"); }
+    | A S B                    { printf("Valid string\n"); }
+    ;
 
-stmt: S NL { printf("Valid string\n"); exit(0); }
-;
-
-S: A S B | /* Allow for empty production */
-  
-;
-
-%% 
-
-void yyerror(char *s) {
-    fprintf(stderr, "Invalid string\n");
-}
+%%
 
 int main() {
-    printf("Enter the string:");
+    printf("Enter a string:\n");
     yyparse();
     return 0;
 }
 
+void yyerror(const char *s) {
+    printf("Invalid string\n");
+}
 ```
 
 ## OUTPUT
-![image](https://github.com/user-attachments/assets/efe62914-544c-47f9-bbe7-a36f581beb6a)
+![image](https://github.com/user-attachments/assets/745986a0-9a11-4ab3-830f-d5583ae5be7e)
+
 
 ## RESULT
 The YACC program to recognize the grammar anb where n>=10 is executed successfully and the output is verified.
